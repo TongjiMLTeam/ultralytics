@@ -66,11 +66,18 @@ class DWConv(Conv):
     # Depth-wise convolution class
     def __init__(self, c1, c2, k=1, s=1, act=True):  # ch_in, ch_out, kernel, stride, padding, groups
         super().__init__(c1, c2, k, s, g=math.gcd(c1, c2), act=act)
- 
+
+
+class GSBottleneckC(GSBottleneck):
+    # cheap GS Bottleneck https://github.com/Alanli1997/slim-neck-by-gsconv
+    def __init__(self, c1, c2, k=3, s=1):
+        super().__init__(c1, c2, k, s)
+        self.shortcut = DWConv(c1, c2, k, s, act=False)
+
 
 class VoVGSCSP(nn.Module):
     # VoVGSCSP module with GSBottleneck
-    def __init__(self, cx, c2, n=1, shortcut=True, g=1, e=0.5):
+    def __init__(self, c1, c2, n=1, shortcut=True, g=1, e=0.5):
         super().__init__()
         c_ = int(c2 * e)  # hidden channels
         self.cv1 = Conv(c1, c_, 1, 1)
