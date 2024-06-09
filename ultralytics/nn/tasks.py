@@ -65,7 +65,8 @@ from ultralytics.utils.torch_utils import (
     time_sync,
 )
 
-from ultralytics.nn. SlimNeck import VoVGSCSP, VoVGSCSPC, GSConv
+from ultralytics.nn.SlimNeck import VoVGSCSP, VoVGSCSPC, GSConv
+from ultralytics.nn.GAM import GAM_Attention
 
 try:
     import thop
@@ -891,6 +892,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             VoVGSCSP,
             VoVGSCSPC,
             GSConv,
+            GAM_Attention,
         }:
         # if m in (
         #     Classify, 
