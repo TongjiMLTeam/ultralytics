@@ -2,7 +2,7 @@ import warnings
 warnings.filterwarnings('ignore')
 from ultralytics import YOLO
 
-model = YOLO("/root/ultralytics/yolov8-SlimNeck+GSConv+GAM.yaml")
+model = YOLO("yolov8-SlimNeck+GSConv+GAM.yaml")
 model.train(data = "../autodl-tmp/ObstacleDataset/dataset/obstacle.yaml",
             cache=False,
             imgsz=640,
